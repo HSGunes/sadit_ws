@@ -21,14 +21,26 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         parameters=[
-            {'robot_description': robot_urdf}
+            {'robot_description': robot_urdf},
+            {'use_sim_time': True},
+            {'publish_frequency': 50.0}
         ]
     )
 
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        name='joint_state_publisher'
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': True}]
+    )
+
+    # TF Static Publisher for map to odom
+    tf_static_publisher = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='map_to_odom',
+        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom'],
+        output='screen'
     )
 
     gazebo_server = IncludeLaunchDescription(
@@ -40,7 +52,7 @@ def generate_launch_description():
             ])
         ]),
         launch_arguments={
-           # 'world': os.path.join(share_dir, 'world', 'sadit.world')
+             'world': os.path.join(share_dir, 'world', 'sadit.world')
         }.items()
     )
 
@@ -68,6 +80,7 @@ def generate_launch_description():
     return LaunchDescription([
         robot_state_publisher_node,
         joint_state_publisher_node,
+        tf_static_publisher,
         gazebo_server,
         gazebo_client,
         urdf_spawn_node,

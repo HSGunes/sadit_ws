@@ -31,20 +31,21 @@
 </link>
 
 <!-- Lidar (RPLidar S2) -->
-<xacro:rplidar_s2 parent="base_link" name="lidar" xyz="0 0.25 0.25" rpy="0 0 3.14159"/>
+<xacro:rplidar_s2 parent="base_link" name="lidar" xyz="0.662 0.25 0.266" rpy="0 0 0"/>
 <xacro:rplidar_s2_gazebo_plugin name="lidar"/>
 
 <!-- Kamera (D435) -->
-<xacro:realsense_d435 parent="base_link" name="camera" xyz="0 0.35 0.25" rpy="0 0.25 3.14159"/>
+<xacro:realsense_d435 parent="base_link" name="camera" xyz="0.662 0.4 0.266" rpy="0 0.2 0"/>
 <xacro:d435_gazebo_plugins name="camera"/>
 
 <!-- Kamera (D435) -->
-<xacro:realsense_d435_2 parent="base_link" name="camera2" xyz="0 0.15 0.25" rpy="0 0.416666667 3.14159"/>
+<xacro:realsense_d435_2 parent="base_link" name="camera2" xyz="0.662 0.1 0.266" rpy="0 0.2 0"/>
 <xacro:d435_gazebo_plugins_2 name="camera2"/>
 
 <!-- IMU Sensor -->
 <xacro:imu_sensor parent="base_link" name="imu" xyz="0 0 0.1" rpy="0 0 0"/>
 
+<!-- Tekerlek Linkleri -->
 <link name="sol_on_teker_1">
   <inertial>
     <origin xyz="-2.4068959325607153e-10 -0.017481000866814603 2.1836282781961813e-12" rpy="0 0 0"/>
@@ -129,6 +130,7 @@
   </collision>
 </link>
 
+<!-- Tekerlek Joint'leri -->
 <joint name="sol_on" type="continuous">
   <origin xyz="0.0825 0.073 -0.048" rpy="0 0 0"/>
   <parent link="base_link"/>
